@@ -1,4 +1,5 @@
 import pygame
+import pygame.transform
 
 class Character:
     def __init__(self, position, image):
@@ -13,7 +14,7 @@ class Character:
         self.ImageRect = self.ImageRect.move(xspeed,yspeed)
     def gravity(self, screen_height):
         if self.ImageRect.y + self.Image.get_rect().height < screen_height:
-            self.ImageRect = self.ImageRect.move(0,4)
+            self.ImageRect = self.ImageRect.move(0,6)
     def jump(self, jump_height, screen_height):
         if self.ImageRect.y + self.ImageRect.height > screen_height -200:
             self.ImageRect = self.ImageRect.move(0,-jump_height)

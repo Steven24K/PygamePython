@@ -29,7 +29,7 @@ class MainGame:
 
         #Create all game characters here
         self.Player1 = c.Character(c.Position(200,250), "knight.png")
-        self.Enemy1 = c.Character(c.Position(50,50) , "enemy.png")
+        self.Enemy1 = c.Character(c.Position(50,180) , "enemy.png")
 
     def run(self):
         while True:
@@ -56,8 +56,8 @@ class MainGame:
                 self.Player1.update(-2,0)
             if keys[pygame.K_RIGHT]:
                 self.Player1.update(2,0)
-            if keys[pygame.K_UP]:
-                self.Player1.jump(5, self.Height)
+            if keys[pygame.K_UP] and not keys[pygame.K_RIGHT] and not keys[pygame.K_LEFT]:
+                self.Player1.jump(10, self.Height)
 
             if self.Player1.intersection(self.Enemy1.ImageRect.x, self.Enemy1.ImageRect.y, self.Enemy1.ImageRect.height, self.Enemy1.ImageRect.width):
                 self.Player1.Score += 1
