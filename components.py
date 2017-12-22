@@ -2,8 +2,9 @@ import pygame
 import pygame.transform
 
 class Character:
-    def __init__(self, position, image):
+    def __init__(self, position, image, speed = 0):
         self.Score = 0
+        self.Speed = speed
         self.Image = pygame.image.load(image)
         self.ImageRect = self.Image.get_rect()
         self.ImageRect.x = position.X
@@ -22,9 +23,14 @@ class Character:
         if self.ImageRect.x + self.ImageRect.width < 0:
             self.ImageRect.x = screen_width
         if self.ImageRect.x > screen_width:
-            self.ImageRect.x = 0
+            self.ImageRect.x = -self.ImageRect.width
+    def vertical_screen_wrap(self, screen_height):
+        if self.ImageRect.y + self.ImageRect.height < 0:
+            self.ImageRect.y = screen_height
+        if self.ImageRect.y > screen_height:
+            self.ImageRect.y = -self.ImageRect.height
     def display_score(self, screen, font, text_color):
-        screen.blit(font.render(str(self.Score),False,text_color),(self.ImageRect.x, self.ImageRect.y))
+        screen.blit(font.render("Score: " + str(self.Score),False,text_color),(self.ImageRect.x, self.ImageRect.y))
     def display_position(self, screen, font, text_color):
         screen.blit(font.render("(x: " + str(self.ImageRect.x) + ",y: " + str(self.ImageRect.y) + ")", False, text_color), (self.ImageRect.x, self.ImageRect.y-40))
     def intersection(self, x, y, height, width):
@@ -32,6 +38,7 @@ class Character:
             return True
         else:
             return False
+
                    
         
 class Position:
