@@ -1,7 +1,7 @@
 import pygame
 import pygame.transform
 
-class Character:
+class Component:
     def __init__(self, position, image, speed = 0):
         self.Score = 0
         self.Speed = speed
@@ -34,10 +34,8 @@ class Character:
     def display_position(self, screen, font, text_color):
         screen.blit(font.render("(x: " + str(self.ImageRect.x) + ",y: " + str(self.ImageRect.y) + ")", False, text_color), (self.ImageRect.x, self.ImageRect.y-40))
     def intersection(self, x, y, height, width):
-        if self.ImageRect.x + self.ImageRect.width > x and self.ImageRect.x < x + width and self.ImageRect.y + self.ImageRect.height > y and self.ImageRect.y < y + height:
-            return True
-        else:
-            return False
+        return (self.ImageRect.x + self.ImageRect.width > x and self.ImageRect.x < x + width and self.ImageRect.y + self.ImageRect.height > y and self.ImageRect.y < y + height)
+
 
                    
         

@@ -29,24 +29,23 @@ class MainGame:
         self.Color = clr.Color()
 
         #Create all game characters here
-        self.Player1 = c.Character(c.Position(200,250), "knight.png")
-        self.Enemy1 = c.Character(c.Position(50,180) , "enemy.png", 5)
-        self.Enemy2 = c.Character(c.Position(100,230) , "enemy.png", 5)
-        self.Enemy3 = c.Character(c.Position(150,280) , "enemy.png", 5)
+        self.Player1 = c.Component(c.Position(200,250), "knight.png")
+
+        #This is a list/array of all enemies, at initialization there is only one enemy in the list
+        self.Enemies = []
+        self.Enemies.append(c.Component(c.Position(50,250), "enemy.png"))
 
     def run(self):
         while True:
             for event in pygame.event.get():
               if event.type == pygame.QUIT: sys.exit()
 
+            #Set the background color of the pygame window, HINT: See what happens when you remove this line
             self.Screen.fill(self.Color.White)
             
             #Get keyboard input, checks if a certain key is pressed or not
             keys = pygame.key.get_pressed()
 
-            ################################################################
-            ####################START FOR YOUR GAME#########################
-            ################################################################
 
             #Player opperations, draw, update, set gravity, wrap screen and display score
             self.Player1.draw(self.Screen)
@@ -55,6 +54,7 @@ class MainGame:
             self.Player1.display_score(self.Screen, self.DefaultFont, self.Color.Green)
             self.Player1.display_position(self.Screen, self.DefaultFont, self.Color.Blue)
            
+           #Keyboard checks if a certain key is pressed the player will respond to that
             if keys[pygame.K_LEFT]:
                 self.Player1.update(-2,0)
             if keys[pygame.K_RIGHT]:
@@ -64,35 +64,22 @@ class MainGame:
             if keys[pygame.K_DOWN]:
                 self.Player1.update(0, 2)
 
-            if self.Player1.intersection(self.Enemy1.ImageRect.x, self.Enemy1.ImageRect.y, self.Enemy1.ImageRect.height, self.Enemy1.ImageRect.width):
-                self.Player1.Score += 1
-                self.Enemy1.ImageRect.x = random.randint(0, self.Width - self.Enemy1.ImageRect.width)
-                self.Enemy1.ImageRect.y = random.randint(0, self.Height -self.Enemy1.ImageRect.height)
+            #This for-loop draws all enemies on the screen and checks for all enemies if the main player has an intersection with 
+            #on of them,
+            for enemy in self.Enemies:
+                enemy.draw(self.Screen)
+                if self.Player1.intersection(enemy.ImageRect.x, enemy.ImageRect.y, enemy.ImageRect.height, enemy.ImageRect.width):
+                    self.Player1.Score += 1
+                    enemy.ImageRect.x = random.randint(0, self.Width - enemy.ImageRect.width)
+                    enemy.ImageRect.y = random.randint(0, self.Height -enemy.ImageRect.height)
+                    self.Enemies.append(c.Component(c.Position(random.randint(0, self.Width - enemy.ImageRect.width),random.randint(0, self.Height -enemy.ImageRect.height)),"enemy.png"))
 
-            #Enemy opperations draw, update and wrap screen
-            self.Enemy1.draw(self.Screen)
-            self.Enemy1.horizontal_screen_wrap(self.Width)
-            self.Enemy1.display_position(self.Screen, self.DefaultFont, self.Color.Blue)
-
-            if self.Player1.intersection(self.Enemy2.ImageRect.x, self.Enemy2.ImageRect.y, self.Enemy2.ImageRect.height, self.Enemy2.ImageRect.width):
-                self.Player1.Score += 1
-                self.Enemy2.ImageRect.x = random.randint(0, self.Width - self.Enemy1.ImageRect.width)
-                self.Enemy2.ImageRect.y = random.randint(0, self.Height -self.Enemy1.ImageRect.height)
-
-            #Enemy opperations draw, update and wrap screen
-            self.Enemy2.draw(self.Screen)
-            self.Enemy2.horizontal_screen_wrap(self.Width)
-            self.Enemy2.display_position(self.Screen, self.DefaultFont, self.Color.Blue)
-
-            if self.Player1.intersection(self.Enemy3.ImageRect.x, self.Enemy3.ImageRect.y, self.Enemy3.ImageRect.height, self.Enemy3.ImageRect.width):
-                self.Player1.Score += 1
-                self.Enemy3.ImageRect.x = random.randint(0, self.Width - self.Enemy3.ImageRect.width)
-                self.Enemy3.ImageRect.y = random.randint(0, self.Height -self.Enemy3.ImageRect.height)
-
-            #Enemy opperations draw, update and wrap screen
-            self.Enemy3.draw(self.Screen)
-            self.Enemy3.horizontal_screen_wrap(self.Width)
-            self.Enemy3.display_position(self.Screen, self.DefaultFont, self.Color.Blue)
+            #Clears the enemy list if it becomes to big, if there to many enemies the game will become slow,
+            #Question to ask yourself: Why is the game becomming slow if there are to many enemies?
+            #Todo: Is there a way to fix this?
+            if len(self.Enemies) > 10:
+                 self.Enemies.clear()
+                 self.Enemies.append(c.Component(c.Position(random.randint(0, self.Width - enemy.ImageRect.width),random.randint(0, self.Height -enemy.ImageRect.height)),"enemy.png"))
 
             pygame.display.flip()
             pygame.display.set_caption(self.Title)
