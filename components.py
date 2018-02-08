@@ -13,11 +13,11 @@ class Component:
         screen.blit(self.Image, (self.ImageRect))
     def update(self, xspeed, yspeed):
         self.ImageRect = self.ImageRect.move(xspeed,yspeed)
-    def gravity(self, screen_height):
+    def gravity(self, screen_height, strenght):
         if self.ImageRect.y + self.Image.get_rect().height < screen_height:
-            self.ImageRect = self.ImageRect.move(0,6)
+            self.ImageRect = self.ImageRect.move(0, strenght)
     def jump(self, jump_height, screen_height):
-        if self.ImageRect.y + self.ImageRect.height > screen_height -200:
+        if self.ImageRect.y > 0:
             self.ImageRect = self.ImageRect.move(0,-jump_height)
     def horizontal_screen_wrap(self, screen_width):
         if self.ImageRect.x + self.ImageRect.width < 0:

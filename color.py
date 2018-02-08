@@ -8,9 +8,12 @@ class Color:
         self.Black = (0,0,0)
         self.White = (255,255,255)
         self.Red = (255, 0 ,0)
+        self.LightRed = (249, 124, 124)
         self.Green = (0, 255, 0)
+        self.LightGreen = (128, 249, 124)
         self.Blue = (0, 0, 255)
         self.Yellow = (255, 255, 0)
         self.Pink = (255, 0, 255)
         self.Turquoise = (0, 255, 255)
+        self.Purple = (142, 42, 224)
         #Todo: Add some more colors, try Google color picker
