@@ -15,10 +15,8 @@ games = que.List()
 
 #We insert all games in the Que, first in first out
 games.Enqueue(MainMenu("Main Menu", game_width, game_height))
-games.Enqueue(MainGame("hoi", game_width, game_height))
-games.Enqueue(Game3("3 Three yeaaaaaaaaah!", game_width, game_height))
-games.Enqueue(Game4("Counter", game_width, game_height))
-#Todo: Add more games
+games.Enqueue(MainGame("Game 1", game_width, game_height))
+#Todo: Add Game 3 and 4 to the Que
 
 
 if __name__ == "__main__":

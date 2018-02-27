@@ -43,10 +43,10 @@ class MainMenu:
         self.StartButton = button.Button(600, 250, 50, 200, self.Color.Green, Text.Text(self.Color.Black, self.DefaultFont, "Start"))
 
     def update(self):
-        self.Player1.update(10,0)
-        self.Player1.horizontal_screen_wrap(self.Width)
+        x = 0
+        #Todo: Make the player move on the screen
 
-        self.ExitButton.update()
+        #Todo: Make the exit button work
 
 
     def draw(self): 
@@ -57,7 +57,7 @@ class MainMenu:
         self.Player1.draw(self.Screen)
             
         #Draw start text
-        self.StartText.draw(self.Screen, 500, 30)
+        self.StartText.draw(self.Screen, 400, 30)
 
         #Draw buttons
         self.ExitButton.draw(self.Screen)
@@ -73,7 +73,10 @@ class MainMenu:
 
             if self.StartButton.clicked():
                 #When the start button is clicked the game will end and the next game in the Que will start
-               break
+                x = 0
+                #Do something...
+                #....
+                #....
 
             #Make the game run at 30frames per seccond (30fps)
             self.Clock.tick(30)

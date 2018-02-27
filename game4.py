@@ -51,9 +51,10 @@ class Game4:
         #When we click the button the counter will be updated  
         if self.CountButton.clicked():
             self.Counter += 0.3
-            #We also must update the text object in order to display the correct and updated counter
-            self.CounterText = Text.Text(self.Color.Black, self.DefaultFont, str(math.ceil(self.Counter))) #HINT: See what happens when you remove math.ceil
-                                                                                                           #For better understanding of the pygame runtime
+            #Missing code here:
+            #.....
+            #.....
+            #.....
 
     def draw(self): 
         #Set the background color of the pygame window, HINT: See what happens when you remove this line

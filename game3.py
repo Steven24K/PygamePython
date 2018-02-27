@@ -34,22 +34,37 @@ class Game3:
         self.DefaultFont = pygame.font.SysFont(None,30)
 
         #Initialize text messages
-        self.StartText = Text.Text(self.Color.Black, self.DefaultFont, "This pygame template provides an easy way to quickly build a game in Python.")
+        self.StartText = Text.Text(self.Color.Black, self.DefaultFont, "Make the player move on the screen, up, down, left and right!")
         self.NextLine = Text.Text(self.Color.Black, self.DefaultFont, "Why do the same thing over and over again when it allready exists!!!")
 
         #Create all game characters here
         self.Player1 = c.Component(c.Position(400,100), "enemy.png")
+        self.Apple = c.Component(c.Position(100,100),"apple.png")
+       
+        self.AppleCounter = 0
+        self.Score = Text.Text(self.Color.Black, self.DefaultFont, "Apple Counter: " + str(self.AppleCounter))
 
         
-        #Create a button
-        self.ExitButton = button.Button(300,250, 50,200, self.Color.Red, Text.Text(self.Color.Black, self.DefaultFont, "Next"))
-        
-
+       
     def update(self):
-        self.Player1.update(20,0)
-        self.Player1.horizontal_screen_wrap(self.Width)
+        keys = pygame.key.get_pressed()
 
-        self.ExitButton.update()
+        if keys[pygame.K_LEFT]:
+            self.Player1.update(-5,0)
+        if keys[pygame.K_RIGHT]:
+            self.Player1.update(5,0)
+        #Todo: Make the player move up and Down 
+
+        if self.Player1.intersection(self.Apple.ImageRect.x, self.Apple.ImageRect.y, self.Apple.ImageRect.height, self.Apple.ImageRect.width):
+            self.Apple.ImageRect.x = random.randint(0, self.Width-self.Apple.ImageRect.width)
+            self.Apple.ImageRect.y = random.randint(0, self.Height-self.Apple.ImageRect.height)
+            self.AppleCounter += 1
+
+        #Todo: Update the AppleCounter Text
+        
+        self.Player1.horizontal_screen_wrap(self.Width)
+        self.Player1.vertical_screen_wrap(self.Height)
+
 
     def draw(self): 
         #Set the background color of the pygame window, HINT: See what happens when you remove this line
@@ -58,16 +73,18 @@ class Game3:
         #Player drawing and animation
         self.Player1.draw(self.Screen)
 
-            
+        #Draw apple
+        self.Apple.draw(self.Screen)    
+        
         #Draw start text
-        self.StartText.draw(self.Screen, 100, 30)
-        self.NextLine.draw(self.Screen, 100, 50)
+        self.StartText.draw(self.Screen, 500, 30)
+        self.NextLine.draw(self.Screen, 500, 50)
+        self.Score.draw(self.Screen, 50,50)
 
-        #Draw buttons
-        self.ExitButton.draw(self.Screen)
 
 
     def run(self):
+        #Make the game end when the apple counter is 10
         while True:
             for event in pygame.event.get():
               if event.type == pygame.QUIT: sys.exit()
@@ -75,8 +92,6 @@ class Game3:
             self.update()
             self.draw()
 
-            if self.ExitButton.clicked():
-                break
 
             self.Clock.tick(30)
             pygame.display.flip()
