@@ -1,4 +1,5 @@
-import pygame
+import pygame 
+import sys
 import components as c
 import color as clr
 import Text
@@ -66,7 +67,7 @@ class MainMenu:
         while True:
             for event in pygame.event.get():
               if event.type == pygame.QUIT: sys.exit()
-
+                  
             self.update()
             self.draw()
 
@@ -82,5 +83,6 @@ class MainMenu:
 
 #To test only a single game, uncomment this code and run python <GAME_NAME>.pygame
 #Short cut: CTRL + K + C (Comment) CTRL + K + U (uncomment)
-# test_game = MainMenu("Test instance", 1200,600)
-# test_game.run()
+if __name__ == "__main__":
+    test_game = MainMenu("Test instance", 1200,600)
+    test_game.run()

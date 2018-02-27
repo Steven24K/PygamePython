@@ -21,6 +21,7 @@ games.Enqueue(Game4("Counter", game_width, game_height))
 #Todo: Add more games
 
 
-#After the insertions, we itterate over the que and executie each game until the que is empty
-while not games.IsEmpty():
-    games.Dequeue().run()
+if __name__ == "__main__":
+    #After the insertions, we itterate over the que and executie each game until the que is empty
+    while not games.IsEmpty():
+        games.Dequeue().run()

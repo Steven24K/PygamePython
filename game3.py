@@ -85,5 +85,6 @@ class Game3:
 
 #To test only a single game, uncomment this code and run python <GAME_NAME>.pygame
 #Short cut: CTRL + K + C (Comment) CTRL + K + U (uncomment)
-# test_game = Game3("Test instance", 1200,600)
-# test_game.run()
+if __name__ == "__main__":
+    test_game = Game3("Test instance", 1200,600)
+    test_game.run()
