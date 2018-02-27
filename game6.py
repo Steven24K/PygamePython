@@ -16,7 +16,7 @@ pygame.font.init()
 #The things this method does are:
 #Check for keyboard input, draw the characters on the screen and all the character updates and opperations such as jump, move and gravity
 
-class MainGame:
+class Game6:
     def __init__(self, title, width, height):
         self.Title = title
         self.Height = height
@@ -85,5 +85,6 @@ class MainGame:
             pygame.display.set_caption(self.Title)
 
 #Create a new game and run the program
-game = MainGame("My pygame",1200,600)
-game.run()
+if __name__ == "__main__":
+    game = Game6("My pygame",1200,600)
+    game.run()
