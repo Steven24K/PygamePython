@@ -34,7 +34,8 @@ class Game5:
         self.Screen.fill(self.Color.Red)
 
     def run(self):
-        while True:
+        #Change False to True, this just to skip this empty game
+        while False:
             for event in pygame.event.get():
               if event.type == pygame.QUIT: sys.exit()
 

@@ -53,23 +53,21 @@ class MainGame:
         #Player opperations
         self.Player1.gravity(self.Height, 10)
         if keys[pygame.K_SPACE] and self.Player1.ImageRect.y > 0:
-            x = 0
-            #Todo: Make de player jump when you press space
+            self.Player1.jump(20, self.Height)
 
         #Enemy opperations
         if len(self.Enemies) < 1: self.Enemies.append(c.Component(c.Position(self.Width-100, 300), "knight.png"))
 
         for enemy in self.Enemies:       
             enemy.gravity(self.Height, 10)
-            #Todo: Make the enemy move on the screen
+            enemy.update(-25,0)
 
             if enemy.ImageRect.x < 0: self.Enemies.remove(enemy)
             if enemy.intersection(self.Player1.ImageRect.x, self.Player1.ImageRect.y, self.Player1.ImageRect.height, self.Player1.ImageRect.width):
-                #Do something with the score
+                self.Player1.Score -= 1
                 self.Player1.jump(200, self.Height)
             if enemy.ImageRect.x == self.Player1.ImageRect.x: 
-                #Do something with the score
-                x = 0
+                self.Player1.Score += 1
 
     def draw(self):
         #Set the background color of the pygame window, HINT: See what happens when you remove this line

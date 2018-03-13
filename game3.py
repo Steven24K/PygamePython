@@ -5,6 +5,7 @@ import components as c
 import color as clr
 import Text
 import button
+import math
 
 
 pygame.init()
@@ -39,7 +40,7 @@ class Game3:
 
         #Create all game characters here
         self.Player1 = c.Component(c.Position(400,100), "enemy.png")
-        self.Apple = c.Component(c.Position(100,100),"apple.png")
+        self.Apple = c.Component(c.Position(0,0),"apple.png")
        
         self.AppleCounter = 0
         self.Score = Text.Text(self.Color.Black, self.DefaultFont, "Apple Counter: " + str(self.AppleCounter))
@@ -50,17 +51,21 @@ class Game3:
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_LEFT]:
-            self.Player1.update(-5,0)
+            self.Player1.update(-10,0)
         if keys[pygame.K_RIGHT]:
-            self.Player1.update(5,0)
-        #Todo: Make the player move up and Down 
+            self.Player1.update(10,0)
+        if keys[pygame.K_UP]:
+            self.Player1.update(0,-10)
+        if keys[pygame.K_DOWN]:
+            self.Player1.update(0,10)
 
         if self.Player1.intersection(self.Apple.ImageRect.x, self.Apple.ImageRect.y, self.Apple.ImageRect.height, self.Apple.ImageRect.width):
             self.Apple.ImageRect.x = random.randint(0, self.Width-self.Apple.ImageRect.width)
             self.Apple.ImageRect.y = random.randint(0, self.Height-self.Apple.ImageRect.height)
             self.AppleCounter += 1
+            self.Score.Message = "Apple Counter: " + str(math.ceil(self.AppleCounter))
 
-        #Todo: Update the AppleCounter Text
+
         
         self.Player1.horizontal_screen_wrap(self.Width)
         self.Player1.vertical_screen_wrap(self.Height)
@@ -85,7 +90,7 @@ class Game3:
 
     def run(self):
         #Make the game end when the apple counter is 10
-        while True:
+        while self.AppleCounter <= 10:
             for event in pygame.event.get():
               if event.type == pygame.QUIT: sys.exit()
 
