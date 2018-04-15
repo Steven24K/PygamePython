@@ -4,6 +4,7 @@ import components as c
 import color as clr
 import Text
 import button
+import soundProvider as sp
 
 pygame.init()
 pygame.font.init()
@@ -33,6 +34,12 @@ class MainMenu:
 
         #Initialize text messages
         self.StartText = Text.Text(self.Color.Black, self.DefaultFont, "Welcom to my pygame template!!!")
+
+        #Initialize the soundprovider
+        self.BackgroundMusic = sp.SoundProvider("9th_Symphony_Finale_by_Beethoven.mp3")
+        #Set the background music to play
+        self.BackgroundMusic.Play(5)
+        
         
         #Create all game characters here
         self.Player1 = c.Component(c.Position(400,100), "enemy.png")

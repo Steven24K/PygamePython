@@ -4,6 +4,7 @@ from game3 import Game3
 from game4 import Game4
 from game5 import Game5
 from game6 import Game6
+from game7 import Game7
 
 import que
 
@@ -23,6 +24,7 @@ games.Enqueue(Game3("Game 3", game_width, game_height))
 games.Enqueue(Game4("Game 4", game_width, game_height))
 games.Enqueue(Game5("Game 5", game_width, game_height))
 games.Enqueue(Game6("Game 6", game_width, game_height))
+games.Enqueue(Game7("Game 7", game_width, game_width))
 
 
 if __name__ == "__main__":

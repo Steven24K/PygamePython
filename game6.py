@@ -3,6 +3,7 @@ import sys
 import random
 import components as c
 import color as clr
+import soundProvider as sp
 
 pygame.init()
 pygame.font.init()
@@ -28,6 +29,11 @@ class Game6:
         #This color is a refrence to the color object, in there all different colors are defined
         self.Color = clr.Color()
 
+        #Initlialize sound provider 
+        self.CrashSound = sp.SoundProvider("Crash.mp3")
+
+
+
         #Create all game characters here
         self.Player1 = c.Component(c.Position(200,250), "knight.png")
 
@@ -36,12 +42,15 @@ class Game6:
         self.Enemies.append(c.Component(c.Position(50,250), "enemy.png"))
 
     def run(self):
+        #Game does not have an end yet
         while True:
             for event in pygame.event.get():
               if event.type == pygame.QUIT: sys.exit()
 
             #Set the background color of the pygame window, HINT: See what happens when you remove this line
             self.Screen.fill(self.Color.White)
+
+            
             
             #Get keyboard input, checks if a certain key is pressed or not
             keys = pygame.key.get_pressed()
@@ -69,6 +78,7 @@ class Game6:
             for enemy in self.Enemies:
                 enemy.draw(self.Screen)
                 if self.Player1.intersection(enemy.ImageRect.x, enemy.ImageRect.y, enemy.ImageRect.height, enemy.ImageRect.width):
+                    self.CrashSound.Play(1)
                     self.Player1.Score += 1
                     enemy.ImageRect.x = random.randint(0, self.Width - enemy.ImageRect.width)
                     enemy.ImageRect.y = random.randint(0, self.Height -enemy.ImageRect.height)

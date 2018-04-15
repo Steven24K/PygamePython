@@ -61,7 +61,7 @@ class MainGame:
         for enemy in self.Enemies:       
             enemy.gravity(self.Height, 10)
             enemy.update(-25,0)
-
+            
             if enemy.ImageRect.x < 0: self.Enemies.remove(enemy)
             if enemy.intersection(self.Player1.ImageRect.x, self.Player1.ImageRect.y, self.Player1.ImageRect.height, self.Player1.ImageRect.width):
                 self.Player1.Score -= 1
